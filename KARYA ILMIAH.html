@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Harga Bulog</title>
+    <link rel="stylesheet" href="KARYA ILMIAH.css">
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Sistem Informasi Harga Bulog</h1>
+            </div>
+            <div class="subtitle">Monitoring Harga Gabah dan Beras di Wilayah Kediri, Tulungagung, dan Trenggalek</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Rata-Rata Harga Gabah GKP</h3>
+                <div class="stat-value">Rp 5.950/kg</div>
+                <div class="price-up">▲ 2.5%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Rata-Rata Harga Beras Premium</h3>
+                <div class="stat-value">Rp 13.200/kg</div>
+                <div class="price-stable">► 0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Rata-Rata Harga Beras Medium</h3>
+                <div class="stat-value">Rp 11.500/kg</div>
+                <div class="price-down">▼ 1.2%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Update Terakhir</h3>
+                <div class="stat-value" id="last-update">12 Mei 2025</div>
+            </div>
+        </div>
+        
+        <div class="notification">
+            <strong>Informasi:</strong> Harga yang ditampilkan merupakan harga rata-rata di tingkat petani yang tercatat per tanggal 12 Mei 2025.
+        </div>
+        
+        <div class="search-container">
+            <h2>Cari Informasi Harga</h2>
+            <div class="form-group">
+                <label for="region-select">Kabupaten/Kota:</label>
+                <select id="region-select">
+                    <option value="">-- Pilih Kabupaten/Kota --</option>
+                    <option value="kota-kediri">Kota Kediri</option>
+                    <option value="kab-kediri">Kabupaten Kediri</option>
+                    <option value="kab-tulungagung">Kabupaten Tulungagung</option>
+                    <option value="kab-trenggalek">Kabupaten Trenggalek</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="district-select">Kecamatan:</label>
+                <select id="district-select" disabled>
+                    <option value="">-- Pilih Kecamatan --</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="commodity-select">Komoditas:</label>
+                <select id="commodity-select">
+                    <option value="">-- Pilih Komoditas --</option>
+                    <option value="gabah-gkp">Gabah Kering Panen (GKP)</option>
+                    <option value="gabah-gkg">Gabah Kering Giling (GKG)</option>
+                    <option value="beras-premium">Beras Premium</option>
+                    <option value="beras-medium">Beras Medium</option>
+                </select>
+            </div>
+            
+            <div class="button-container">
+                <button id="search-button">Cari Harga</button>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <div class="date-info">Data per tanggal: <span id="current-date">12 Mei 2025</span></div>
+            <table class="price-table" id="price-table">
+                <thead>
+                    <tr>
+                        <th>Kabupaten/Kota</th>
+                        <th>Kecamatan</th>
+                        <th>Komoditas</th>
+                        <th>Harga (Rp/kg)</th>
+                        <th>Trend</th>
+                        <th>Harga Bulog (Rp/kg)</th>
+                        <th>Selisih (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="price-table-body">
+                    <!-- Data will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="region-header">
+            <h2>Kabupaten Kediri</h2>
+        </div>
+        <div class="table-container">
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Gabah GKP (Rp/kg)</th>
+                        <th>Gabah GKG (Rp/kg)</th>
+                        <th>Beras Premium (Rp/kg)</th>
+                        <th>Beras Medium (Rp/kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ngasem</td>
+                        <td>5.900</td>
+                        <td>6.800</td>
+                        <td>13.200</td>
+                        <td>11.400</td>
+                    </tr>
+                    <tr>
+                        <td>Gampengrejo</td>
+                        <td>5.950</td>
+                        <td>6.850</td>
+                        <td>13.300</td>
+                        <td>11.500</td>
+                    </tr>
+                    <tr>
+                        <td>Banyakan</td>
+                        <td>5.850</td>
+                        <td>6.750</td>
+                        <td>13.100</td>
+                        <td>11.350</td>
+                    </tr>
+                    <tr>
+                        <td>Grogol</td>
+                        <td>5.900</td>
+                        <td>6.800</td>
+                        <td>13.250</td>
+                        <td>11.450</td>
+                    </tr>
+                    <tr>
+                        <td>Tarokan</td>
+                        <td>5.880</td>
+                        <td>6.780</td>
+                        <td>13.150</td>
+                        <td>11.400</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="region-header">
+            <h2>Kota Kediri</h2>
+        </div>
+        <div class="table-container">
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Gabah GKP (Rp/kg)</th>
+                        <th>Gabah GKG (Rp/kg)</th>
+                        <th>Beras Premium (Rp/kg)</th>
+                        <th>Beras Medium (Rp/kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mojoroto</td>
+                        <td>6.000</td>
+                        <td>6.900</td>
+                        <td>13.400</td>
+                        <td>11.600</td>
+                    </tr>
+                    <tr>
+                        <td>Kota</td>
+                        <td>6.050</td>
+                        <td>6.950</td>
+                        <td>13.450</td>
+                        <td>11.650</td>
+                    </tr>
+                    <tr>
+                        <td>Pesantren</td>
+                        <td>6.000</td>
+                        <td>6.900</td>
+                        <td>13.400</td>
+                        <td>11.600</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="region-header">
+            <h2>Kabupaten Tulungagung</h2>
+        </div>
+        <div class="table-container">
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Gabah GKP (Rp/kg)</th>
+                        <th>Gabah GKG (Rp/kg)</th>
+                        <th>Beras Premium (Rp/kg)</th>
+                        <th>Beras Medium (Rp/kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kedungwaru</td>
+                        <td>5.950</td>
+                        <td>6.850</td>
+                        <td>13.200</td>
+                        <td>11.450</td>
+                    </tr>
+                    <tr>
+                        <td>Ngunut</td>
+                        <td>5.900</td>
+                        <td>6.800</td>
+                        <td>13.150</td>
+                        <td>11.400</td>
+                    </tr>
+                    <tr>
+                        <td>Sumbergempol</td>
+                        <td>5.920</td>
+                        <td>6.820</td>
+                        <td>13.180</td>
+                        <td>11.430</td>
+                    </tr>
+                    <tr>
+                        <td>Kauman</td>
+                        <td>5.880</td>
+                        <td>6.780</td>
+                        <td>13.100</td>
+                        <td>11.380</td>
+                    </tr>
+                    <tr>
+                        <td>Gondang</td>
+                        <td>5.900</td>
+                        <td>6.800</td>
+                        <td>13.150</td>
+                        <td>11.400</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="region-header">
+            <h2>Kabupaten Trenggalek</h2>
+        </div>
+        <div class="table-container">
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Gabah GKP (Rp/kg)</th>
+                        <th>Gabah GKG (Rp/kg)</th>
+                        <th>Beras Premium (Rp/kg)</th>
+                        <th>Beras Medium (Rp/kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Trenggalek</td>
+                        <td>5.880</td>
+                        <td>6.780</td>
+                        <td>13.100</td>
+                        <td>11.350</td>
+                    </tr>
+                    <tr>
+                        <td>Durenan</td>
+                        <td>5.850</td>
+                        <td>6.750</td>
+                        <td>13.050</td>
+                        <td>11.300</td>
+                    </tr>
+                    <tr>
+                        <td>Pogalan</td>
+                        <td>5.830</td>
+                        <td>6.730</td>
+                        <td>13.000</td>
+                        <td>11.250</td>
+                    </tr>
+                    <tr>
+                        <td>Karangan</td>
+                        <td>5.820</td>
+                        <td>6.720</td>
+                        <td>12.980</td>
+                        <td>11.230</td>
+                    </tr>
+                    <tr>
+                        <td>Gandusari</td>
+                        <td>5.800</td>
+                        <td>6.700</td>
+                        <td>12.950</td>
+                        <td>11.200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sistem Informasi Harga Bulog | Perum BULOG</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Data kecamatan berdasarkan kabupaten/kota
+        const districts = {
+            "kab-kediri": [
+                "Ngasem", "Gampengrejo", "Banyakan", "Grogol", "Tarokan", 
+                "Plosoklaten", "Gurah", "Pagu", "Kayen Kidul", "Gampengrejo",
+                "Ngadiluwih", "Mojo", "Semen", "Badas", "Kandangan"
+            ],
+            "kota-kediri": [
+                "Mojoroto", "Kota", "Pesantren"
+            ],
+            "kab-tulungagung": [
+                "Kedungwaru", "Ngunut", "Sumbergempol", "Kauman", "Gondang",
+                "Boyolangu", "Karangrejo", "Ngantru", "Kalidawir", "Rejotangan",
+                "Pucanglaban", "Tanggunggunung", "Kampak", "Bendungan"
+            ],
+            "kab-trenggalek": [
+                "Trenggalek", "Durenan", "Pogalan", "Karangan", "Gandusari",
+                "Tugu", "Bendungan", "Suruh", "Pule", "Kampak"
+            ]
+        };
+        
+        // Data harga bulog (harga acuan)
+        const bulogPrices = {
+            "gabah-gkp": 5800,
+            "gabah-gkg": 6700,
+            "beras-premium": 13000,
+            "beras-medium": 11300
+        };
+        
+        // Data harga pasar
+        const priceData = {
+            "kab-kediri": {
+                "Ngasem": {
+                    "gabah-gkp": 5900,
+                    "gabah-gkg": 6800,
+                    "beras-premium": 13200,
+                    "beras-medium": 11400
+                },
+                "Gampengrejo": {
+                    "gabah-gkp": 5950,
+                    "gabah-gkg": 6850,
+                    "beras-premium": 13300,
+                    "beras-medium": 11500
+                },
+                "Banyakan": {
+                    "gabah-gkp": 5850,
+                    "gabah-gkg": 6750,
+                    "beras-premium": 13100,
+                    "beras-medium": 11350
+                },
+                "Grogol": {
+                    "gabah-gkp": 5900,
+                    "gabah-gkg": 6800,
+                    "beras-premium": 13250,
+                    "beras-medium": 11450
+                },
+                "Tarokan": {
+                    "gabah-gkp": 5880,
+                    "gabah-gkg": 6780,
+                    "beras-premium": 13150,
+                    "beras-medium": 11400
+                }
+            },
+            "kota-kediri": {
+                "Mojoroto": {
+                    "gabah-gkp": 6000,
+                    "gabah-gkg": 6900,
+                    "beras-premium": 13400,
+                    "beras-medium": 11600
+                },
+                "Kota": {
+                    "gabah-gkp": 6050,
+                    "gabah-gkg": 6950,
+                    "beras-premium": 13450,
+                    "beras-medium": 11650
+                },
+                "Pesantren": {
+                    "gabah-gkp": 6000,
+                    "gabah-gkg": 6900,
+                    "beras-premium": 13400,
+                    "beras-medium": 11600
+                }
+            },
+            "kab-tulungagung": {
+                "Kedungwaru": {
+                    "gabah-gkp": 5950,
+                    "gabah-gkg": 6850,
+                    "beras-premium": 13200,
+                    "beras-medium": 11450
+                },
+                "Ngunut": {
+                    "gabah-gkp": 5900,
+                    "gabah-gkg": 6800,
+                    "beras-premium": 13150,
+                    "beras-medium": 11400
+                },
+                "Sumbergempol": {
+                    "gabah-gkp": 5920,
+                    "gabah-gkg": 6820,
+                    "beras-premium": 13180,
+                    "beras-medium": 11430
+                },
+                "Kauman": {
+                    "gabah-gkp": 5880,
+                    "gabah-gkg": 6780,
+                    "beras-premium": 13100,
+                    "beras-medium": 11380
+                },
+                "Gondang": {
+                    "gabah-gkp": 5900,
+                    "gabah-gkg": 6800,
+                    "beras-premium": 13150,
+                    "beras-medium": 11400
+                }
+            },
+            "kab-trenggalek": {
+                "Trenggalek": {
+                    "gabah-gkp": 5880,
+                    "gabah-gkg": 6780,
+                    "beras-premium": 13100,
+                    "beras-medium": 11350
+                },
+                "Durenan": {
+                    "gabah-gkp": 5850,
+                    "gabah-gkg": 6750,
+                    "beras-premium": 13050,
+                    "beras-medium": 11300
+                },
+                "Pogalan": {
+                    "gabah-gkp": 5830,
+                    "gabah-gkg": 6730,
+                    "beras-premium": 13000,
+                    "beras-medium": 11250
+                },
+                "Karangan": {
+                    "gabah-gkp": 5820,
+                    "gabah-gkg": 6720,
+                    "beras-premium": 12980,
+                    "beras-medium": 11230
+                },
+                "Gandusari": {
+                    "gabah-gkp": 5800,
+                    "gabah-gkg": 6700,
+                    "beras-premium": 12950,
+                    "beras-medium": 11200
+                }
+            }
+        };
+        
+        // Trend data (% perubahan dari bulan sebelumnya)
+        const trendData = {
+            "kab-kediri": {
+                "Ngasem": {
+                    "gabah-gkp": 2.5,
+                    "gabah-gkg": 1.8,
+                    "beras-premium": 0.8,
+                    "beras-medium": -0.5
+                },
+                "Gampengrejo": {
+                    "gabah-gkp": 3.0,
+                    "gabah-gkg": 2.2,
+                    "beras-premium": 1.2,
+                    "beras-medium": 0.0
+                },
+                "Banyakan": {
+                    "gabah-gkp": 1.5,
+                    "gabah-gkg": 1.0,
+                    "beras-premium": 0.5,
+                    "beras-medium": -1.0
+                },
+                "Grogol": {
+                    "gabah-gkp": 2.0,
+                    "gabah-gkg": 1.5,
+                    "beras-premium": 1.0,
+                    "beras-medium": -0.2
+                },
+                "Tarokan": {
+                    "gabah-gkp": 1.8,
+                    "gabah-gkg": 1.2,
+                    "beras-premium": 0.7,
+                    "beras-medium": -0.5
+                }
+            },
+            "kota-kediri": {
+                "Mojoroto": {
+                    "gabah-gkp": 3.5,
+                    "gabah-gkg": 2.5,
+                    "beras-premium": 1.5,
+                    "beras-medium": 0.5
+                },
+                "Kota": {
+                    "gabah-gkp": 4.0,
+                    "gabah-gkg": 3.0,
+                    "beras-premium": 2.0,
+                    "beras-medium": 1.0
+                },
+                "Pesantren": {
+                    "gabah-gkp": 3.5,
+                    "gabah-gkg": 2.5,
+                    "beras-premium": 1.5,
+                    "beras-medium": 0.5
+                }
+            },
+            "kab-tulungagung": {
+                "Kedungwaru": {
+                    "gabah-gkp": 2.8,
+                    "gabah-gkg": 2.0,
+                    "beras-premium": 1.0,
+                    "beras-medium": 0.0
+                },
+                "Ngunut": {
+                    "gabah-gkp": 2.5,
+                    "gabah-gkg": 1.8,
+                    "beras-premium": 0.8,
+                    "beras-medium": -0.5
+                },
+                "Sumbergempol": {
+                    "gabah-gkp": 2.6,
+                    "gabah-gkg": 1.9,
+                    "beras-premium": 0.9,
+                    "beras-medium": -0.2
+                },
+                "Kauman": {
+                    "gabah-gkp": 2.0,
+                    "gabah-gkg": 1.5,
+                    "beras-premium": 0.5,
+                    "beras-medium": -0.8
+                },
+                "Gondang": {
+                    "gabah-gkp": 2.5,
+                    "gabah-gkg": 1.8,
+                    "beras-premium": 0.8,
+                    "beras-medium": -0.5
+                }
+            },
+            "kab-trenggalek": {
+                "Trenggalek": {
+                    "gabah-gkp": 2.0,
+                    "gabah-gkg": 1.5,
+                    "beras-premium": 0.5,
+                    "beras-medium": -0.8
+                },
+                "Durenan": {
+                    "gabah-gkp": 1.5,
+                    "gabah-gkg": 1.0,
+                    "beras-premium": 0.2,
+                    "beras-medium": -1.0
+                },
+                "Pogalan": {
+                    "gabah-gkp": 1.2,
+                    "gabah-gkg": 0.8,
+                    "beras-premium": 0.0,
+                    "beras-medium": -1.2
+                },
+                "Karangan": {
+                    "gabah-gkp": 1.0,
+                    "gabah-gkg": 0.5,
+                    "beras-premium": -0.2,
+                    "beras-medium": -1.5
+                },
+                "Gandusari": {
+                    "gabah-gkp": 0.8,
+                    "gabah-gkg": 0.3,
+                    "beras-premium": -0.5,
+                    "beras-medium": -1.8
+                }
+            }
+        };
+        
+        // Nama komoditas untuk tampilan
+        const commodityNames = {
+            "gabah-gkp": "Gabah Kering Panen (GKP)",
+            "gabah-gkg": "Gabah Kering Giling (GKG)",
+            "beras-premium": "Beras Premium",
+            "beras-medium": "Beras Medium"
+        };
+        
+        // Nama region untuk tampilan
+        const regionNames = {
+            "kab-kediri": "Kabupaten Kediri",
+            "kota-kediri": "Kota Kediri",
+            "kab-tulungagung": "Kabupaten Tulungagung",
+            "kab-trenggalek": "Kabupaten Trenggalek"
+        };
+        
+        // Fungsi untuk mengatur dropdown kecamatan berdasarkan kabupaten/kota yang dipilih
+        document.getElementById('region-select').addEventListener('change', function() {
+            const districtSelect = document.getElementById('district-select');
+            const selectedRegion = this.value;
+            
+            // Reset kecamatan dropdown
+            districtSelect.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+            
+            if (selectedRegion) {
+                // Aktifkan dropdown kecamatan
+                districtSelect.disabled = false;
+                
+                // Tambahkan opsi kecamatan
+                districts[selectedRegion].forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            } else {
+                // Nonaktifkan dropdown kecamatan jika tidak ada kabupaten/kota yang dipilih
+                districtSelect.disabled = true;
+            }
+        });
+        
+        // Fungsi untuk mencari harga
+        document.getElementById('search-button').addEventListener('click', function() {
+            const region = document.getElementById('region-select').value;
+            const district = document.getElementById('district-select').value;
+            const commodity = document.getElementById('commodity-select').value;
+            
+            // Validasi input
+            if (!region) {
+                alert('Silakan pilih Kabupaten/Kota terlebih dahulu.');
+                return;
+            }
+            
+            if (!commodity) {
+                alert('Silakan pilih Komoditas terlebih dahulu.');
+                return;
+            }
+            
+            // Bersihkan tabel hasil pencarian
+            const tableBody = document.getElementById('price-table-body');
+            tableBody.innerHTML = '';
+            
+            // Jika kecamatan dipilih, tampilkan data kecamatan tersebut saja
+            if (district) {
+                displayPriceData(region, district, commodity, tableBody);
+            } else {
+                // Jika kecamatan tidak dipilih, tampilkan semua kecamatan di kabupaten/kota tersebut
+                districts[region].forEach(dist => {
+                    // Pastikan data untuk kecamatan tersebut tersedia
+                    if (priceData[region] && priceData[region][dist]) {
+                        displayPriceData(region, dist, commodity, tableBody);
+                    }
+                });
+            }
+        });
+        
+        // Fungsi untuk menampilkan data harga
+        function displayPriceData(region, district, commodity, tableBody) {
+            // Pastikan data tersedia
+            if (priceData[region] && priceData[region][district] && priceData[region][district][commodity]) {
+                const price = priceData[region][district][commodity];
+                const bulogPrice = bulogPrices[commodity];
+                const trend = trendData[region][district][commodity];
+                
+                // Hitung selisih dengan harga Bulog
+                const difference = ((price - bulogPrice) / bulogPrice * 100).toFixed(2);
+                
+                // Buat baris baru
+                const row = document.createElement('tr');
+                
+                // Isi baris dengan data
+                row.innerHTML = `
+                    <td>${regionNames[region]}</td>
+                    <td>${district}</td>
+                    <td>${commodityNames[commodity]}</td>
+                    <td>${price.toLocaleString('id-ID')}</td>
+                    <td class="${getTrendClass(trend)}">${formatTrend(trend)}</td>
+                    <td>${bulogPrice.toLocaleString('id-ID')}</td>
+                    <td class="${getDifferenceClass(difference)}">${difference}%</td>
+                `;
+                
+                // Tambahkan baris ke tabel
+                tableBody.appendChild(row);
+            }
+        }
+        
+        // Fungsi untuk mendapatkan kelas CSS berdasarkan trend
+        function getTrendClass(trend) {
+            if (trend > 0) return 'price-up';
+            if (trend < 0) return 'price-down';
+            return 'price-stable';
+        }
+        
+        // Fungsi untuk memformat trend
+        function formatTrend(trend) {
+            if (trend > 0) return `▲ ${trend.toFixed(1)}%`;
+            if (trend < 0) return `▼ ${Math.abs(trend).toFixed(1)}%`;
+            return `► ${trend.toFixed(1)}%`;
+        }
+        
+        // Fungsi untuk mendapatkan kelas CSS berdasarkan selisih harga
+        function getDifferenceClass(difference) {
+            if (difference > 5) return 'price-up';
+            if (difference < -5) return 'price-down';
+            return 'price-stable';
+        }
+        
+        // Fungsi untuk mengatur tanggal saat ini
+        function setCurrentDate() {
+            const dateElements = document.querySelectorAll('#current-date, #last-update');
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            
+            const today = new Date();
+            const day = today.getDate();
+            const month = months[today.getMonth()];
+            const year = today.getFullYear();
+            const formattedDate = `${day} ${month} ${year}`;
+            
+            dateElements.forEach(el => {
+                el.textContent = formattedDate;
+            });
+        }
+        
+        // Inisialisasi tanggal saat halaman dimuat
+        setCurrentDate();
+    </script>
+</body>
+</html>
